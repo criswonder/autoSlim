@@ -14,8 +14,8 @@ public class FileCtrl {
     private final String RES = "\\res\\";
     private final String[] FILEDIR = {"drawable-hdpi", "drawable-ldpi",
         "drawable-mdpi", "drawable-nodpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable"};
-    private String savePath = "D:\\test\\";
-    private String filePath = "D:\\Work\\sam_pro_taobao_android_gerrit\\porting_4.1.0_gerrit\\res\\";
+    private String savePath = "";
+    private String filePath = "";
     private List<List<File>> list_main = null;
     private File projectDir;
     private File saveDir;
