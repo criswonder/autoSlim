@@ -5,20 +5,27 @@
  */
 package com.taobao.view;
 
+import com.taobao.controller.FileCtrl;
 import com.taobao.controller.LintScanner;
 import static com.taobao.controller.LintScanner.executeCmdCommand;
+import static com.taobao.view.Panel1.projectDir;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
  * @author wb-maohongyun
  */
 public class Panel2 extends javax.swing.JPanel {
+    private File saveDir;
+    private File projectDir;
 
     /**
      * Creates new form Panel2
@@ -36,13 +43,26 @@ public class Panel2 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btn_delete = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        tf_openDir = new javax.swing.JTextField();
+        tf_saveDir = new javax.swing.JTextField();
+        btn_openDir = new javax.swing.JButton();
+        btn_saveDir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        jButton1.setText("删除重复资源");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        setPreferredSize(new java.awt.Dimension(640, 480));
+
+        btn_delete.setText("执行删除");
+        btn_delete.setEnabled(false);
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_deleteActionPerformed(evt);
             }
         });
 
@@ -53,31 +73,112 @@ public class Panel2 extends javax.swing.JPanel {
             }
         });
 
+        tf_openDir.setEditable(false);
+        tf_openDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_openDirActionPerformed(evt);
+            }
+        });
+
+        tf_saveDir.setEditable(false);
+        tf_saveDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_saveDirActionPerformed(evt);
+            }
+        });
+
+        btn_openDir.setText("打开");
+        btn_openDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_openDirActionPerformed(evt);
+            }
+        });
+
+        btn_saveDir.setText("打开");
+        btn_saveDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_saveDirActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel1.setText("项目源：");
+
+        jLabel2.setText("存放源：");
+
+        jLabel3.setFont(new java.awt.Font("幼圆", 0, 18)); // NOI18N
+        jLabel3.setText("删除重复资源");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tf_saveDir, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_saveDir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tf_openDir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_openDir)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_delete))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jButton1)
-                .addGap(27, 27, 27)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_openDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_openDir)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_saveDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_saveDir)
+                            .addComponent(jLabel2)))
+                    .addComponent(btn_delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+                // TODO add your handling code here:
+        if(projectDir != null && saveDir != null && jTextArea1 != null){
+            FileCtrl fc = new FileCtrl(projectDir, saveDir,jTextArea1);
+            fc.letsGO();
+        }
+    }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -115,9 +216,131 @@ public class Panel2 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btn_openDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openDirActionPerformed
+        final JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+
+                if (arg0.getClickCount() == 2) {
+                    File file = fc.getSelectedFile();
+                    if (file.isDirectory()) {
+                        fc.setCurrentDirectory(file);
+                        fc.rescanCurrentDirectory();
+                    } else {
+                        fc.approveSelection();
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("getCurrentDirectory(): "
+                    + fc.getCurrentDirectory());
+            System.out.println("getSelectedFile() : "
+                    + fc.getSelectedFile());
+            tf_openDir.setText(fc.getSelectedFile().getAbsolutePath());
+            projectDir = new File(fc.getSelectedFile().getAbsolutePath());
+            setCanDel();
+        } else {
+            System.out.println("No Selection ");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_openDirActionPerformed
+
+    private void tf_openDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_openDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_openDirActionPerformed
+
+    private void tf_saveDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_saveDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_saveDirActionPerformed
+
+    private void btn_saveDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveDirActionPerformed
+        final JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+
+                if (arg0.getClickCount() == 2) {
+                    File file = fc.getSelectedFile();
+                    if (file.isDirectory()) {
+                        fc.setCurrentDirectory(file);
+                        fc.rescanCurrentDirectory();
+                    } else {
+                        fc.approveSelection();
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("getCurrentDirectory(): "
+                    + fc.getCurrentDirectory());
+            System.out.println("getSelectedFile() : "
+                    + fc.getSelectedFile());
+            tf_saveDir.setText(fc.getSelectedFile().getAbsolutePath());
+            saveDir = new File(fc.getSelectedFile().getAbsolutePath());
+            setCanDel();
+        } else {
+            System.out.println("No Selection ");
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_btn_saveDirActionPerformed
+
+    public void setCanDel(){
+        if(tf_openDir.getText().length()>0 && tf_saveDir.getText().length()>0){
+            btn_delete.setEnabled(true);
+        }else{
+            btn_delete.setEnabled(false);
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_delete;
+    private javax.swing.JButton btn_openDir;
+    private javax.swing.JButton btn_saveDir;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField tf_openDir;
+    private javax.swing.JTextField tf_saveDir;
     // End of variables declaration//GEN-END:variables
 }
