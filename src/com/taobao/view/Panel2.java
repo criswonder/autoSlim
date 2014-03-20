@@ -7,8 +7,6 @@ package com.taobao.view;
 
 import com.taobao.controller.FileCtrl;
 import com.taobao.controller.LintScanner;
-import static com.taobao.controller.LintScanner.executeCmdCommand;
-import static com.taobao.view.Panel1.projectDir;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -29,6 +27,7 @@ public class Panel2 extends javax.swing.JPanel {
     private File projectDir;
     private File lintSaveDir;
     private File lintProjectDir;
+    private LintScanner lintScanner;
 
     /**
      * Creates new form Panel2
@@ -208,12 +207,13 @@ public class Panel2 extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(tf_openDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btn_openDir)
-                            .addComponent(jLabel1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn_openDir)
+                                .addComponent(jLabel1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -244,7 +244,7 @@ public class Panel2 extends javax.swing.JPanel {
                     .addComponent(btn_lintDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -277,7 +277,11 @@ public class Panel2 extends javax.swing.JPanel {
                 return;
             }
         }
-        FutureTask<String> t = executeCmdCommand(
+        if (lintScanner == null) {
+            lintScanner = new LintScanner(jTextArea2);
+        }
+        jTextArea2.setText("");
+        FutureTask<String> t = lintScanner.executeCmdCommand(
                 "cmd /c "
                 + "lint " + lintProjectDir.getAbsolutePath() + " --check UnusedResources,IconDuplicates,IconDuplicatesConfig --xml "
                 + resultTmpFile.getAbsolutePath()
@@ -285,7 +289,7 @@ public class Panel2 extends javax.swing.JPanel {
         try {
             if (t.get().equals("success")) {
                 System.out.println("!!!!!!!!!!!!!!!!!!!! sucessful!");
-                LintScanner.deleteUnusedResources(LintScanner.parseXMLUseJDOM(resultTmpFile.getAbsolutePath()),lintProjectDir);
+                lintScanner.deleteUnusedResources(lintScanner.parseXMLUseJDOM(resultTmpFile.getAbsolutePath()), lintProjectDir);
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

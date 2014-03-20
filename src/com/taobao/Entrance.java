@@ -95,7 +95,7 @@ public class Entrance extends JFrame {
         this.getContentPane().add(pane);
         this.getContentPane().add(p, BorderLayout.SOUTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(700, 500);
+        this.setSize(800, 640);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }

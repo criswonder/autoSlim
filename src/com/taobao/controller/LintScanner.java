@@ -14,6 +14,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
+import javax.swing.JTextArea;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -26,10 +27,13 @@ import org.jdom2.input.SAXBuilder;
  */
 public class LintScanner {
 
-    public LintScanner() {
+    private JTextArea myTextArea = null;
+
+    public LintScanner(JTextArea jTextArea1) {
+        myTextArea = jTextArea1;
     }
 
-    public static void deleteUnusedResources(List lst, File pro) {
+    public void deleteUnusedResources(List lst, File pro) {
         if (null != lst) {
             Issue issue = null;
             File toDel = null;
@@ -41,16 +45,17 @@ public class LintScanner {
                             toDel = new File(pro.getAbsolutePath() + "\\" + issue.getLocation().replace("\\", "\\\\"));
                             if (toDel.exists()) {
                                 toDel.delete();
-                                System.out.println("del file " + issue.getLocation());
+                                myTextArea.append("del file " + issue.getLocation() + "\n");
+                                myTextArea.paintImmediately(myTextArea.getBounds());
                             }
-
                         }
                         if (issue.getLocation().endsWith(".xml")
                                 && !(issue.getColumn() != null && issue.getColumn().length() > 0)) {
                             toDel = new File(pro.getAbsolutePath() + "\\" + issue.getLocation().replace("\\", "\\\\"));
                             if (toDel.exists()) {
                                 toDel.delete();
-                                System.out.println("del file " + issue.getLocation());
+                                myTextArea.append("del file " + issue.getLocation() + "\n");
+                                myTextArea.paintImmediately(myTextArea.getBounds());
                             }
 
                         }
@@ -64,7 +69,7 @@ public class LintScanner {
      * 解析lint的扫描结果文件
      */
     @SuppressWarnings("rawtypes")
-    public static List parseXMLUseJDOM(String resultFilePath) {
+    public List parseXMLUseJDOM(String resultFilePath) {
         SAXBuilder builder = new SAXBuilder();
         List<Issue> issues = new ArrayList<Issue>();
         File xmlFile = new File(resultFilePath);
@@ -104,7 +109,7 @@ public class LintScanner {
      * @param cmdStr 拼接好的命令参数
      * @return
      */
-    public static FutureTask<String> executeCmdCommand(final String cmdStr) {
+    public FutureTask<String> executeCmdCommand(final String cmdStr) {
         final ExecutorService exec = Executors.newSingleThreadExecutor();
         FutureTask<String> task = new FutureTask<String>(new Callable<String>() {
 
@@ -119,11 +124,14 @@ public class LintScanner {
                         proc.getInputStream(), Charset.forName("GBK")));
 
                 String s = null;
-                System.out.println("Here is the standard output of the command:\n");
+                myTextArea.append("Here is the standard output of the command:\n");
+                myTextArea.paintImmediately(myTextArea.getBounds());
                 while ((s = stdInput.readLine()) != null) {
-                    System.out.println(s);
+                    myTextArea.append(s);
+                    myTextArea.paintImmediately(myTextArea.getBounds());
                 }
-                System.out.println("Here is the standard error of the command (if any):\n");
+                myTextArea.append("Here is the standard error of the command (if any):\n");
+                myTextArea.paintImmediately(myTextArea.getBounds());
                 while ((s = stdError.readLine()) != null) {
                     System.out.println(s);
                 }
