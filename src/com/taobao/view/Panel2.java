@@ -25,8 +25,9 @@ public class Panel2 extends javax.swing.JPanel {
 
     private File saveDir;
     private File projectDir;
-    private File lintSaveDir;
+    private File lintDir;
     private File lintProjectDir;
+    private File lintSaveDir;
     private LintScanner lintScanner;
 
     /**
@@ -61,11 +62,14 @@ public class Panel2 extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tf_lintOpenDir = new javax.swing.JTextField();
-        tf_lintSaveDir = new javax.swing.JTextField();
-        btn_lintSaveDir = new javax.swing.JButton();
+        tf_lintDir = new javax.swing.JTextField();
+        btn_lintDir = new javax.swing.JButton();
         btn_lintOpenDir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        tf_lintSaveDir = new javax.swing.JTextField();
+        btn_lintSaveDir = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(640, 480));
 
@@ -133,13 +137,19 @@ public class Panel2 extends javax.swing.JPanel {
         jLabel6.setText("lint源：");
 
         tf_lintOpenDir.setEditable(false);
-
-        tf_lintSaveDir.setEditable(false);
-
-        btn_lintSaveDir.setText("打开");
-        btn_lintSaveDir.addActionListener(new java.awt.event.ActionListener() {
+        tf_lintOpenDir.setText("C:\\Users\\wb-wangyan.wan\\Documents");
+        tf_lintOpenDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lintSaveDirActionPerformed(evt);
+                tf_lintOpenDirActionPerformed(evt);
+            }
+        });
+
+        tf_lintDir.setEditable(false);
+
+        btn_lintDir.setText("打开");
+        btn_lintDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lintDirActionPerformed(evt);
             }
         });
 
@@ -154,6 +164,23 @@ public class Panel2 extends javax.swing.JPanel {
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
+
+        jLabel7.setText("存放源：");
+
+        tf_lintSaveDir.setEditable(false);
+        tf_lintSaveDir.setText("C:\\Users\\wb-wangyan.wan\\Documents");
+        tf_lintSaveDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_lintSaveDirActionPerformed(evt);
+            }
+        });
+
+        btn_lintSaveDir.setText("打开");
+        btn_lintSaveDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lintSaveDirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -171,7 +198,7 @@ public class Panel2 extends javax.swing.JPanel {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tf_openDir, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                            .addComponent(tf_openDir, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
                             .addComponent(tf_saveDir))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -180,24 +207,32 @@ public class Panel2 extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_lintSaveDir, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                            .addComponent(tf_lintOpenDir))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_lintSaveDir)
-                            .addComponent(btn_lintOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_lintDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_lintSaveDir, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_lintDir, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                                    .addComponent(tf_lintOpenDir))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_lintDir)
+                            .addComponent(btn_lintOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_lintSaveDir))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_lintDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -232,19 +267,26 @@ public class Panel2 extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tf_lintOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_lintOpenDir)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tf_lintOpenDir, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_lintOpenDir)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tf_lintSaveDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_lintSaveDir)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(tf_lintDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_lintDir)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tf_lintSaveDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_lintSaveDir))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(btn_lintDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -278,7 +320,7 @@ public class Panel2 extends javax.swing.JPanel {
             }
         }
         if (lintScanner == null) {
-            lintScanner = new LintScanner(jTextArea2);
+            lintScanner = new LintScanner(jTextArea2,lintSaveDir);
         }
         jTextArea2.setText("");
         FutureTask<String> t = lintScanner.executeCmdCommand(
@@ -449,6 +491,63 @@ public class Panel2 extends javax.swing.JPanel {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btn_lintOpenDirActionPerformed
 
+    private void btn_lintDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lintDirActionPerformed
+        // TODO add your handling code here:
+        final JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+
+                if (arg0.getClickCount() == 2) {
+                    File file = fc.getSelectedFile();
+                    if (file.isDirectory()) {
+                        fc.setCurrentDirectory(file);
+                        fc.rescanCurrentDirectory();
+                    } else {
+                        fc.approveSelection();
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("getCurrentDirectory(): "
+                    + fc.getCurrentDirectory());
+            System.out.println("getSelectedFile() : "
+                    + fc.getSelectedFile());
+            tf_lintDir.setText(fc.getSelectedFile().getAbsolutePath());
+            lintDir = new File(fc.getSelectedFile().getAbsolutePath());
+            setCanDel();
+        } else {
+            System.out.println("No Selection ");
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_btn_lintDirActionPerformed
+
+    private void tf_lintSaveDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_lintSaveDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_lintSaveDirActionPerformed
+
+    private void tf_lintOpenDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_lintOpenDirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_lintOpenDirActionPerformed
+
     private void btn_lintSaveDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lintSaveDirActionPerformed
         // TODO add your handling code here:
         final JFileChooser fc = new JFileChooser();
@@ -495,7 +594,7 @@ public class Panel2 extends javax.swing.JPanel {
             setCanDel();
         } else {
             System.out.println("No Selection ");
-        }         // TODO add your handling code here:
+        }
     }//GEN-LAST:event_btn_lintSaveDirActionPerformed
 
     public void setCanDel() {
@@ -505,7 +604,7 @@ public class Panel2 extends javax.swing.JPanel {
             btn_delete.setEnabled(false);
         }
 
-        if (tf_lintOpenDir.getText().length() > 0) {
+        if (tf_lintOpenDir.getText().length() > 0 && tf_lintSaveDir.getText().length() > 0) {
             btn_lintDelete.setEnabled(true);
         } else {
             btn_lintDelete.setEnabled(false);
@@ -516,6 +615,7 @@ public class Panel2 extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_lintDelete;
+    private javax.swing.JButton btn_lintDir;
     private javax.swing.JButton btn_lintOpenDir;
     private javax.swing.JButton btn_lintSaveDir;
     private javax.swing.JButton btn_openDir;
@@ -526,11 +626,13 @@ public class Panel2 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextField tf_lintDir;
     private javax.swing.JTextField tf_lintOpenDir;
     private javax.swing.JTextField tf_lintSaveDir;
     private javax.swing.JTextField tf_openDir;

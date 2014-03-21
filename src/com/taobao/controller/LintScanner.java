@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -28,9 +29,11 @@ import org.jdom2.input.SAXBuilder;
 public class LintScanner {
 
     private JTextArea myTextArea = null;
+    private File lintSaveDir = null;
 
-    public LintScanner(JTextArea jTextArea1) {
-        myTextArea = jTextArea1;
+    public LintScanner(JTextArea jTextArea2, File lintSaveDir) {
+        this.myTextArea = jTextArea2;
+        this.lintSaveDir = lintSaveDir;
     }
 
     public void deleteUnusedResources(List lst, File pro) {
@@ -44,7 +47,8 @@ public class LintScanner {
                         if (issue.getLocation().endsWith(".png")) {
                             toDel = new File(pro.getAbsolutePath() + "\\" + issue.getLocation().replace("\\", "\\\\"));
                             if (toDel.exists()) {
-                                toDel.delete();
+//                                toDel.delete();
+                                FileUtils.move(toDel, new File(lintSaveDir.getAbsolutePath() + "\\" + issue.getLocation()), true, myTextArea);
                                 myTextArea.append("del file " + issue.getLocation() + "\n");
                                 myTextArea.paintImmediately(myTextArea.getBounds());
                             }
@@ -53,7 +57,8 @@ public class LintScanner {
                                 && !(issue.getColumn() != null && issue.getColumn().length() > 0)) {
                             toDel = new File(pro.getAbsolutePath() + "\\" + issue.getLocation().replace("\\", "\\\\"));
                             if (toDel.exists()) {
-                                toDel.delete();
+//                                toDel.delete();
+                                FileUtils.move(toDel, new File(lintSaveDir.getAbsolutePath() + "\\" + issue.getLocation()), true, myTextArea);
                                 myTextArea.append("del file " + issue.getLocation() + "\n");
                                 myTextArea.paintImmediately(myTextArea.getBounds());
                             }
@@ -67,6 +72,7 @@ public class LintScanner {
 
     /**
      * 解析lint的扫描结果文件
+     * @param resultFilePath
      */
     @SuppressWarnings("rawtypes")
     public List parseXMLUseJDOM(String resultFilePath) {
@@ -89,8 +95,12 @@ public class LintScanner {
                     issue.setLocation(node.getChild("location").getAttributeValue("file"));
                     issue.setColumn(node.getChild("location").getAttributeValue("column"));
                     issue.setLine(node.getChild("location").getAttributeValue("line"));
+                    issue.setName(node.getChild("location").getAttributeValue("name"));
                 } else {
                     continue;
+                }
+                if(issue.getLocation().contains(".png")){
+                    System.out.println("issue.getLocation():" + issue.getLocation());
                 }
                 issues.add(issue);
             }
@@ -150,10 +160,11 @@ public class LintScanner {
         private String location;
         private String line;
         private String column;
+        private String name;
 
         @Override
         public String toString() {
-            return id + "," + location;
+            return getId() + "," + getLocation();
         }
 
         public Issue() {
@@ -214,5 +225,20 @@ public class LintScanner {
         public void setColumn(String column) {
             this.column = column;
         }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
     }
 }

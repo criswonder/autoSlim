@@ -49,8 +49,19 @@ public class FileUtils {
      * 高效拷贝文件
      */
     public static void move(File fi, File fo, boolean isCut, JTextArea jTa) {
+        if (fi == null || fo == null || jTa == null) {
+            return;
+        }
         FileInputStream is = null;
         FileOutputStream os = null;
+        
+        String path = fo.getPath();
+        String[] str = path.split("\\\\");
+        String dirPath = path.replace("\\" + str[str.length-1], "");
+        File tempFile = new File(dirPath);
+        if (!tempFile.exists()) {
+            tempFile.mkdirs();
+        }
         try {
             is = new FileInputStream(fi);
             os = new FileOutputStream(fo);
