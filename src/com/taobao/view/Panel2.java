@@ -137,7 +137,6 @@ public class Panel2 extends javax.swing.JPanel {
         jLabel6.setText("lint源：");
 
         tf_lintOpenDir.setEditable(false);
-        tf_lintOpenDir.setText("C:\\Users\\wb-wangyan.wan\\Documents");
         tf_lintOpenDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_lintOpenDirActionPerformed(evt);
@@ -168,7 +167,6 @@ public class Panel2 extends javax.swing.JPanel {
         jLabel7.setText("存放源：");
 
         tf_lintSaveDir.setEditable(false);
-        tf_lintSaveDir.setText("C:\\Users\\wb-wangyan.wan\\Documents");
         tf_lintSaveDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_lintSaveDirActionPerformed(evt);

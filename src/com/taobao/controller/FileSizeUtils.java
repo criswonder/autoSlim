@@ -39,7 +39,7 @@ public class FileSizeUtils {
 			if (file.isFile()) {
 				dirSize += file.length();
 			} else if (file.isDirectory()) {
-				System.out.println(file.toString()+"="+file.length());
+//				System.out.println(file.toString()+"="+file.length());
 //				dirSize += file.length();
 				dirSize += getDirSize(file); // 如果遇到目录则通过递归调用继续统计
 			}
@@ -52,16 +52,20 @@ public class FileSizeUtils {
                 return null;
             }
             File[] children = file.listFiles();
-            long sum = getDirSize(file);
+            float sum = getDirSize(file)/1024;
+            float sum20Percent = sum*0.08f;
             if(children!=null && children.length>0){
                 HashMap<String ,String> map = new HashMap<>();
                 for(int i=0;i<children.length;i++){
                     if(children[i].isDirectory()){
-                        System.out.println("getChildrenFolderUsage name = "+children[i].getName());
-                        map.put(children[i].getName(), String.valueOf(getDirSize(children[i])/1024.00));
+                        float dirSize = getDirSize(children[i])/1024.00f;
+                        System.out.println("getChildrenFolderUsage folder name "+children[i].getName()+"="+dirSize+",sum20Percent="+sum20Percent+",sum="+sum);
+                        if(dirSize>sum20Percent){
+                             map.put(children[i].getName(), String.valueOf(dirSize));
+                        }
                     }else{
                         if(map.get("other")!=null){
-                            long otherFileSize =Long.parseLong(map.get("other"));
+                            float otherFileSize =Float.parseFloat(map.get("other"));
                             map.put("other",String.valueOf((otherFileSize+children[i].length())/1024.00));
                         }else{
                             map.put("other",String.valueOf(children[i].length()/1024.00));

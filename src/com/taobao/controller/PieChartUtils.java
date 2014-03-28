@@ -95,7 +95,7 @@ public class PieChartUtils {
         // we put the chart into a panel
         ChartPanel chartPanel = new ChartPanel(mChart);
         // default size
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 300));
+        chartPanel.setPreferredSize(new java.awt.Dimension(700, 400));
         // add it to our application
 //        setContentPane(chartPanel);
 
